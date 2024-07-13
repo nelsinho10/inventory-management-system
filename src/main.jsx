@@ -1,10 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { RouterProvider } from 'react-router-dom'
+
 import './index.css'
-import { LayoutPage } from './layout/pages/LayoutPage'
+import { router } from './router/router'
+
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <LayoutPage />
+    <RouterProvider router={router} />
   </React.StrictMode>
 )
