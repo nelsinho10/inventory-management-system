@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types'
+import { NavLink } from 'react-router-dom'
 
 export const SidebarItem = ({ title, iconSvg }) => {
+
+
+
+
   return (
     <li>
-      <a
-        href="#"
+      <NavLink
+        to={`/${title.toLowerCase()}`}
         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
       >
         <svg
@@ -17,7 +22,7 @@ export const SidebarItem = ({ title, iconSvg }) => {
           <path d={iconSvg} />
         </svg>
         <span className="flex-1 ms-3 whitespace-nowrap">{title}</span>
-      </a>
+      </NavLink>
     </li>
   )
 }
