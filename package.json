@@ -12,8 +12,10 @@
   "dependencies": {
     "flowbite": "^2.4.1",
     "flowbite-react": "^0.10.1",
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.24.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
@@ -25,7 +27,11 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "postcss": "^8.4.39",
+    "standard": "^17.1.0",
     "tailwindcss": "^3.4.4",
     "vite": "^5.3.1"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
   }
 }
