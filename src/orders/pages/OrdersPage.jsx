@@ -1,32 +1,18 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import { NewOrderComponent } from '../components/NewOrderComponent'
+import { TitlePageComponent } from '../../shared/components/TitlePageComponent'
+import { useShowModal } from '../../shared/hooks/useShowModal'
 
 export const OrdersPage = () => {
-  const [showModal, setshowModal] = useState(false)
-
-  const handleShowModal = (showModal) => {
-    setshowModal(showModal)
-  }
+  const { showModal, handleShowModal } = useShowModal()
 
   return (
     <div className="container">
-      <div
-        className={`flex justify-between p-3 max-w-full dark:bg-gray-700 dark:border-gray-700 rounded-lg ${
-          showModal ? 'opacity-95' : ''
-        }`}
-      >
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Pedidos
-        </h1>
-        <button
-          type="button"
-          className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-          onClick={() => setshowModal(!showModal)}
-        >
-          Nuevo Pedido
-        </button>
-      </div>
-
+      <TitlePageComponent
+        titleName="Pedidos"
+        buttonTitle="Nuevo Pedido"
+        handleShowModal={handleShowModal}
+      />
       {showModal && <NewOrderComponent handleShowModal={handleShowModal} />}
 
       <div className="mt-10">
@@ -105,7 +91,7 @@ export const OrdersPage = () => {
               <td className="px-6 py-4">n/a</td>
               <td className="px-6 py-4">Electronica</td>
               <td className="px-6 py-4">$2999</td>
-              <td className='px-6 py-4'>100</td>
+              <td className="px-6 py-4">100</td>
               <td className="px-8 py-4">
                 <span className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-green-100 bg-green-600 rounded-full">
                   Completado

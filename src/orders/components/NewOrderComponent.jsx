@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types'
 
 export const NewOrderComponent = ({ handleShowModal }) => {
-  const handleModal = () => {
-    handleShowModal(false)
-  }
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
       <div className="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow dark:bg-gray-800">
@@ -15,7 +11,7 @@ export const NewOrderComponent = ({ handleShowModal }) => {
           <button
             type="button"
             className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-            onClick={handleModal}
+            onClick={() => handleShowModal(false)}
           >
             <svg
               className="w-3 h-3"
