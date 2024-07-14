@@ -2,8 +2,6 @@ import { createBrowserRouter } from 'react-router-dom'
 import { LayoutPage } from '../layout/pages/LayoutPage'
 import { ProductsPage } from '../products/pages/ProductsPage'
 import { OrdersPage } from '../orders/pages/OrdersPage'
-import { NewOrderPage } from '../orders/pages/NewOrderPage'
-import { EditOrderPage } from '../orders/pages/EditOrderPage'
 
 export const router = createBrowserRouter([
   {
@@ -13,14 +11,6 @@ export const router = createBrowserRouter([
       {
         path: '/pedidos',
         element: <OrdersPage />
-      },
-      {
-        path: '/pedidos/nuevo',
-        element: <NewOrderPage />
-      },
-      {
-        path: '/pedidos/editar/:id',
-        element: <EditOrderPage />
       },
       {
         path: '/productos',
@@ -39,5 +29,9 @@ export const router = createBrowserRouter([
         element: <h1>Administración de usuarios</h1>
       }
     ]
+  },
+  {
+    path: '*',
+    element: <h1>404 Not Found</h1>
   }
 ])
