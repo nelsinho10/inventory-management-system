@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 
-export const NewOrderComponent = ({ handleShowModal }) => {
+export const NewOrderComponent = ({ handleShowModal, updateOrdersList }) => {
   const [formValues, setFormValues] = useState({
     orderType: '',
     supplier: '',
@@ -49,6 +49,7 @@ export const NewOrderComponent = ({ handleShowModal }) => {
     orders.push(newOrder)
     localStorage.setItem('orders', JSON.stringify(orders))
     // Close modal
+    updateOrdersList()
     handleShowModal(false)
   }
 
@@ -221,5 +222,6 @@ export const NewOrderComponent = ({ handleShowModal }) => {
 }
 
 NewOrderComponent.propTypes = {
-  handleShowModal: PropTypes.func.isRequired
+  handleShowModal: PropTypes.func.isRequired,
+  updateOrdersList: PropTypes.func.isRequired
 }

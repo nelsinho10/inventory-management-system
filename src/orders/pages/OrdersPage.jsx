@@ -12,6 +12,12 @@ export const OrdersPage = () => {
     setOrdersList(orders);
   }, []);
 
+  const updateOrdersList = () => {
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    setOrdersList(orders);
+  }
+
+
   return (
     <div className="orders-page">
       <TitlePageComponent
@@ -19,7 +25,7 @@ export const OrdersPage = () => {
         buttonTitle="Nuevo Pedido"
         handleShowModal={handleShowModal}
       />
-      {showModal && <NewOrderComponent handleShowModal={handleShowModal} />}
+      {showModal && <NewOrderComponent handleShowModal={handleShowModal} updateOrdersList={updateOrdersList} />}
 
       <div className="orders-page__search mt-10">
         <label htmlFor="table-search" className="orders-page__search-label sr-only">
