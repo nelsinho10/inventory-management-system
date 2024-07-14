@@ -2,12 +2,17 @@ import { createBrowserRouter } from 'react-router-dom'
 import { LayoutPage } from '../layout/pages/LayoutPage'
 import { ProductsPage } from '../products/pages/ProductsPage'
 import { OrdersPage } from '../orders/pages/OrdersPage'
+import { Navigate } from 'react-router-dom'
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <LayoutPage />,
     children: [
+      {
+        path: '/',
+        element: <Navigate to="/pedidos" />
+      },
       {
         path: '/pedidos',
         element: <OrdersPage />
@@ -29,9 +34,5 @@ export const router = createBrowserRouter([
         element: <h1>Administración de usuarios</h1>
       }
     ]
-  },
-  {
-    path: '*',
-    element: <h1>404 Not Found</h1>
   }
 ])
