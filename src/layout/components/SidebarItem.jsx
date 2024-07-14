@@ -9,8 +9,8 @@ export const SidebarItem = ({ title, iconSvg }) => {
         // className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
         className={({ isActive }) =>
           isActive
-            ? 'flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-gray-100 dark:bg-gray-700 group'
-            : 'flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group'
+            ? 'sidebar-item__link sidebar-item__link--active flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-gray-100 dark:bg-gray-700 group'
+            : 'sidebar-item__link flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group'
         }
       >
         <svg
@@ -22,7 +22,7 @@ export const SidebarItem = ({ title, iconSvg }) => {
         >
           <path d={iconSvg} />
         </svg>
-        <span className="flex-1 ms-3 whitespace-nowrap">{title}</span>
+        <span className="sidebar-item__title flex-1 ms-3 whitespace-nowrap">{title}</span>
       </NavLink>
     </li>
   )
