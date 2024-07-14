@@ -3,6 +3,9 @@ import { LayoutPage } from '../layout/pages/LayoutPage'
 import { ProductsPage } from '../products/pages/ProductsPage'
 import { OrdersPage } from '../orders/pages/OrdersPage'
 import { Navigate } from 'react-router-dom'
+import { SuppliersPage } from '../suppliers/pages/SuppliersPage'
+import { CustomersPage } from '../customers/pages/CustomersPage'
+import { AdminPage } from '../admin/pages/AdminPage'
 
 export const router = createBrowserRouter([
   {
@@ -23,15 +26,15 @@ export const router = createBrowserRouter([
       },
       {
         path: '/proveedores',
-        element: <h1>Proveedores</h1>
+        element: <SuppliersPage />
       },
       {
         path: '/clientes',
-        element: <h1>Clientes</h1>
+        element: <CustomersPage />
       },
       {
         path: '/administracion',
-        element: <h1>Administración de usuarios</h1>
+        element: <AdminPage />
       }
     ]
   }
