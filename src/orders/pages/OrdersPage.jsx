@@ -1,22 +1,32 @@
-import { NewOrderComponent } from '../components/NewOrderComponent';
-import { TitlePageComponent } from '../../shared/components/TitlePageComponent';
-import { useShowModal } from '../../shared/hooks/useShowModal';
-import { useEffect, useState } from 'react';
+import { NewOrderComponent } from '../components/NewOrderComponent'
+import { TitlePageComponent } from '../../shared/components/TitlePageComponent'
+import { useShowModal } from '../../shared/hooks/useShowModal'
+import { useEffect, useState } from 'react'
+import { BASE_URL_OPERATOR } from '../../shared/constanst/base-url.const'
 
 export const OrdersPage = () => {
-  const { showModal, handleShowModal } = useShowModal();
-  const [ordersList, setOrdersList] = useState([]);
+  const { showModal, handleShowModal } = useShowModal()
+  const [ordersList, setOrdersList] = useState([])
 
-  useEffect(() => {
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    setOrdersList(orders);
-  }, []);
-
-  const updateOrdersList = () => {
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    setOrdersList(orders);
+  const getAllOrders = () => {
+    fetch(`${BASE_URL_OPERATOR}/orders`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data)
+        setOrdersList(data)
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+      })
   }
 
+  const updateOrdersList = () => {
+    getAllOrders()
+  }
+
+  useEffect(() => {
+    getAllOrders()
+  }, [])
 
   return (
     <div className="orders-page">
@@ -25,10 +35,18 @@ export const OrdersPage = () => {
         buttonTitle="Nuevo Pedido"
         handleShowModal={handleShowModal}
       />
-      {showModal && <NewOrderComponent handleShowModal={handleShowModal} updateOrdersList={updateOrdersList} />}
+      {showModal && (
+        <NewOrderComponent
+          handleShowModal={handleShowModal}
+          updateOrdersList={updateOrdersList}
+        />
+      )}
 
       <div className="orders-page__search mt-10">
-        <label htmlFor="table-search" className="orders-page__search-label sr-only">
+        <label
+          htmlFor="table-search"
+          className="orders-page__search-label sr-only"
+        >
           Buscar
         </label>
         <div className="orders-page__search-input-wrapper relative">
@@ -62,15 +80,27 @@ export const OrdersPage = () => {
         <table className="orders-page__table w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="orders-page__table-head text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" className="orders-page__table-header px-4 py-3">Id Pedido</th>
-              <th scope="col" className="orders-page__table-header px-6 py-3">Tipo de Pedido</th>
-              <th scope="col" className="orders-page__table-header px-6 py-3">Proveedor</th>
-              <th scope="col" className="orders-page__table-header px-6 py-3">Cliente</th>
-              <th scope="col" className="orders-page__table-header px-6 py-3">Categoria</th>
-              <th scope="col" className="orders-page__table-header px-6 py-3">Precio</th>
-              <th scope="col" className="orders-page__table-header px-6 py-3">Cantidad</th>
-              <th scope="col" className="orders-page__table-header px-6 py-3">Estado</th>
-              <th scope="col" className="orders-page__table-header px-8 py-3">Acciones</th>
+              <th scope="col" className="orders-page__table-header px-4 py-3">
+                Id Pedido
+              </th>
+              <th scope="col" className="orders-page__table-header px-6 py-3">
+                Tipo de Pedido
+              </th>
+              <th scope="col" className="orders-page__table-header px-6 py-3">
+                Cliente
+              </th>
+              <th scope="col" className="orders-page__table-header px-6 py-3">
+                Dirección
+              </th>
+              <th scope="col" className="orders-page__table-header px-6 py-3">
+                Teléfono
+              </th>
+              <th scope="col" className="orders-page__table-header px-6 py-3">
+                Estado
+              </th>
+              <th scope="col" className="orders-page__table-header px-8 py-3">
+                Acciones
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -85,14 +115,29 @@ export const OrdersPage = () => {
                 >
                   {order.id}
                 </th>
-                <td className="orders-page__table-cell px-6 py-4">{order.orderType}</td>
-                <td className="orders-page__table-cell px-6 py-4">{order.supplier}</td>
-                <td className="orders-page__table-cell px-6 py-4">{order.customer}</td>
-                <td className="orders-page__table-cell px-6 py-4">{order.category}</td>
-                <td className="orders-page__table-cell px-6 py-4">${Number(order.price)}</td>
-                <td className="orders-page__table-cell px-6 py-4">{Number(order.quantity)}</td>
+                <td className="orders-page__table-cell px-6 py-4">
+                  {order.type === 'compra' ? (
+                    <span className="orders-page__type-delivery inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-green-100 bg-blue-600 rounded-full">
+                      Compra
+                    </span>
+                  ) : (
+                    <span className="orders-page__type-pickup inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-yellow-600 rounded-full">
+                      Venta
+                    </span>
+                  ) }
+                </td>
+                <td className="orders-page__table-cell px-6 py-4">
+                  {order.customer.name}
+                </td>
+                <td className="orders-page__table-cell px-6 py-4">
+                  {order.customer.address}
+                </td>
+                <td className="orders-page__table-cell px-6 py-4">
+                  {order.customer.phone}
+                </td>
+               
                 <td className="orders-page__table-cell px-8 py-4">
-                  {order.id % 2 === 0 ? (
+                  {order.status ? (
                     <span className="orders-page__status-completed inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-green-100 bg-green-600 rounded-full">
                       Completado
                     </span>
@@ -172,5 +217,5 @@ export const OrdersPage = () => {
         </table>
       </div>
     </div>
-  );
-};
+  )
+}
