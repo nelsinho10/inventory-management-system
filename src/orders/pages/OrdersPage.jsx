@@ -7,6 +7,7 @@ import { BASE_URL_OPERATOR } from '../../shared/constanst/base-url.const'
 export const OrdersPage = () => {
   const { showModal, handleShowModal } = useShowModal()
   const [ordersList, setOrdersList] = useState([])
+  const [searchQuery, setSearchQuery] = useState('')
 
   const getAllOrders = () => {
     fetch(`${BASE_URL_OPERATOR}/orders`)
@@ -27,6 +28,14 @@ export const OrdersPage = () => {
   useEffect(() => {
     getAllOrders()
   }, [])
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value)
+  }
+
+  const filteredOrders = ordersList.filter((order) =>
+    order.customer.name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
   return (
     <div className="orders-page">
@@ -72,6 +81,8 @@ export const OrdersPage = () => {
             id="table-search"
             className="orders-page__search-input block py-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Buscar..."
+            value={searchQuery}
+            onChange={handleSearchChange}
           />
         </div>
       </div>
@@ -104,7 +115,7 @@ export const OrdersPage = () => {
             </tr>
           </thead>
           <tbody>
-            {ordersList.map((order) => (
+            {filteredOrders.map((order) => (
               <tr
                 key={order.id}
                 className="orders-page__table-row bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -124,7 +135,7 @@ export const OrdersPage = () => {
                     <span className="orders-page__type-pickup inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-yellow-600 rounded-full">
                       Venta
                     </span>
-                  ) }
+                  )}
                 </td>
                 <td className="orders-page__table-cell px-6 py-4">
                   {order.customer.name}
@@ -135,7 +146,6 @@ export const OrdersPage = () => {
                 <td className="orders-page__table-cell px-6 py-4">
                   {order.customer.phone}
                 </td>
-               
                 <td className="orders-page__table-cell px-8 py-4">
                   {order.status ? (
                     <span className="orders-page__status-completed inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-green-100 bg-green-600 rounded-full">
